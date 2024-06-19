@@ -49,7 +49,8 @@ def lambda_handler(event, context):
                 elif message_type == 'video':
                     object_key = f'{timestamp}_{message_id}.mp4'
                     data = message_content.content
-                    print(data)
+                    print("data", data)
+
                     try:
                         s3.put_object(Bucket=s3_bucket_name, Key=object_key, Body=data)
                         print(f"Video uploaded to S3: s3://{s3_bucket_name}/{object_key}")
