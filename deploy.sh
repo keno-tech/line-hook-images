@@ -14,7 +14,7 @@
 # Constants
 readonly COMPACT_DIR="package"
 readonly TARGET_PY_NAME="lambda_function.py"
-readonly FUNCTION_NAME="py-lambda-money-management-app-east"
+readonly FUNCTION_NAME="linebot"
 readonly ENV_NAME=".env"
 readonly REQUIRE_NAME="requirement.txt"
 readonly ZIP_FILE="lambda_function.zip"
