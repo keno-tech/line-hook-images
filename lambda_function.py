@@ -12,8 +12,6 @@ handler = WebhookHandler(os.getenv('LINE_CHANNEL_SECRET'))
 
 s3_bucket_name = os.getenv('S3_BUCKET_NAME')
 
-textract = boto3.client('textract', region_name='us-east-1')
-
 
 def lambda_handler(event, context):
     try:
