@@ -43,5 +43,5 @@ def lambda_handler(event, context):
         # Log the exception and return a 500 Internal Server Error response
         return {
             "statusCode": 500,
-            "body": json.dumps({"message": "Internal Server Error"})
+            "body": json.dumps({"message": f"{e}"})
         }
