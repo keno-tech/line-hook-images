@@ -3,7 +3,7 @@ import boto3
 from linebot import LineBotApi, WebhookHandler
 import os
 from dotenv import load_dotenv
-from datetime import datetime
+from datetime import datetime, timedelta
 
 load_dotenv()
 line_bot_api = LineBotApi(os.getenv('LINE_CHANNEL_ACCESS_TOKEN'))
@@ -27,8 +27,14 @@ def lambda_handler(event, context):
                 # Get message content from LINE
                 message_content = line_bot_api.get_message_content(message_id)
                 
-                # Get the current date and time
-                timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+                # Get the current date and time in UTC
+                utc_now = datetime.utcnow()
+                
+                # Convert UTC time to GMT+7 by adding 7 hours
+                gmt_plus_7 = utc_now + timedelta(hours=7)
+                
+                # Format the timestamp
+                timestamp = gmt_plus_7.strftime('%Y-%m-%d_%H-%M-%S')
                 
                 # Determine the type of message and handle accordingly
                 if message_type == 'image':
@@ -41,10 +47,9 @@ def lambda_handler(event, context):
                         print(f"Error uploading image to S3: {e}")
                     
                 elif message_type == 'video':
-                    print("video recieved")
                     object_key = f'{timestamp}_{message_id}.mp4'
                     data = message_content.content
-                    print("Trying to upload", s3_bucket_name, object_key)
+                    print(data)
                     try:
                         s3.put_object(Bucket=s3_bucket_name, Key=object_key, Body=data)
                         print(f"Video uploaded to S3: s3://{s3_bucket_name}/{object_key}")
