@@ -41,7 +41,7 @@ def lambda_handler(event, context):
                         print(f"Error uploading image to S3: {e}")
                     
                 elif message_type == 'video':
-                    # Handle video messages if needed
+                    print("video recieved")
                     object_key = f'{timestamp}_{message_id}.mp4'
                     data = message_content.content
                     print("Trying to upload", s3_bucket_name, object_key)
