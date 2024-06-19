@@ -17,7 +17,7 @@ def lambda_handler(event, context):
     try:
         # Parse the incoming LINE message event
         msg = json.loads(event['body'])
-        
+        print("Received message:", json.dumps(msg, indent=2))
         # Process each event in the message
         for event in msg['events']:
             # Ensure the event is a message event
@@ -31,8 +31,6 @@ def lambda_handler(event, context):
                     reply_token,
                     TextSendMessage(text=user_message)
                 )
-        print(msg)
-        return msg
         # Return a 200 response with the original message for logging/debugging purposes
         return {
             "statusCode": 200,
