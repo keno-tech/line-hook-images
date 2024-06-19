@@ -31,7 +31,8 @@ def lambda_handler(event, context):
                     reply_token,
                     TextSendMessage(text=user_message)
                 )
-        
+        print(msg)
+        return msg
         # Return a 200 response with the original message for logging/debugging purposes
         return {
             "statusCode": 200,
