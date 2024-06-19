@@ -5,9 +5,6 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-os.environ['AWS_ACCESS_KEY_ID'] = os.getenv('AWS_ACCESS_KEY_ID1') 
-os.environ['AWS_SECRET_ACCESS_KEY'] = os.getenv('AWS_SECRET_ACCESS_KEY1')
-
 line_bot_api = LineBotApi(os.getenv('LINE_CHANNEL_ACCESS_TOKEN'))
 handler = WebhookHandler(os.getenv('LINE_CHANNEL_SECRET'))
 
@@ -33,6 +30,7 @@ def lambda_handler(event, context):
                 if message_type == 'image':
                     object_key = f'{message_id}.jpg'
                     data = message_content.content
+                    print("Trying to upload", s3_bucket_name, object_key, data)
                     s3.put_object(Bucket=s3_bucket_name, Key=object_key, Body=data)
                     print(f"Image uploaded to S3: s3://{s3_bucket_name}/{object_key}")
                     
