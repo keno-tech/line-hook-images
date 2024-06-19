@@ -31,7 +31,10 @@ def lambda_handler(event, context):
                     object_key = f'{message_id}.jpg'
                     data = message_content.content
                     print("Trying to upload", s3_bucket_name, object_key, data)
-                    s3.put_object(Bucket=s3_bucket_name, Key=object_key, Body=data)
+                    try:
+                        s3.put_object(Bucket=s3_bucket_name, Key=object_key, Body=data)
+                    except Exception as e:
+                        print(str(e))
                     print(f"Image uploaded to S3: s3://{s3_bucket_name}/{object_key}")
                     
                 elif message_type == 'video':
