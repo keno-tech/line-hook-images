@@ -14,7 +14,6 @@ s3_bucket_name = os.getenv('S3_BUCKET_NAME')
 
 
 def lambda_handler(event, context):
-    return event
     try:
         # Parse the incoming LINE message event
         msg = json.loads(event['body'])
