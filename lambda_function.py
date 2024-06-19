@@ -15,9 +15,9 @@ s3_bucket_name = os.getenv('S3_BUCKET_NAME')
 
 def lambda_handler(event, context):
     try:
-        print("Received event:", json.dumps(msg, indent=2))
 
         msg = json.loads(event['body'])
+        print("Received event:", json.dumps(msg, indent=2))
 
         for event in msg.get('events', []):
             # Ensure the event is a message event
