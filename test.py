@@ -2,8 +2,8 @@ import boto3
 import os
 
 # Load environment variables from .env file if using dotenv
-from dotenv import load_dotenv
-load_dotenv()
+#from dotenv import load_dotenv
+#load_dotenv()
 
 # S3 bucket name
 s3_bucket_name = os.getenv('S3_BUCKET_NAME')
