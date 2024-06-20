@@ -23,7 +23,7 @@ def lambda_handler(event, context):
             if event['type'] == 'message':
                 message_type = event['message']['type']
                 message_id = event['message']['id']
-                print(message_id)
+                print("Processing Event:", message_id)
                 # Get message content from LINE
                 message_content = line_bot_api.get_message_content(message_id)
                 
@@ -48,8 +48,9 @@ def lambda_handler(event, context):
                     
                 elif message_type == 'video':
                     object_key = f'{timestamp}_{message_id}.mp4'
-                    data = message_content.content
                     print("reached before data")
+
+                    data = message_content.content
                     print("message content:", message_content)
                     print("data", data)
 
