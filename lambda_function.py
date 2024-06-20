@@ -26,7 +26,7 @@ def lambda_handler(event, context):
                 print("Processing Event:", message_id)
                 # Get message content from LINE
                 message_content = line_bot_api.get_message_content(message_id)
-                print(message_content)
+                print(message_content.content)
                 # Get the current date and time in UTC
                 utc_now = datetime.utcnow()
                 
