@@ -16,14 +16,14 @@ def lambda_handler(event, context):
     try:
         # Parse the incoming LINE message event
         msg = json.loads(event['body'])
-        print("Received event:", json.dumps(msg, indent=2))
+        # print("Received event:", json.dumps(msg, indent=2))
 
         for event in msg.get('events', []):
             # Ensure the event is a message event
             if event['type'] == 'message':
                 message_type = event['message']['type']
                 message_id = event['message']['id']
-                
+                print(message_id)
                 # Get message content from LINE
                 message_content = line_bot_api.get_message_content(message_id)
                 
