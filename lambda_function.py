@@ -16,7 +16,6 @@ def lambda_handler(event, context):
     try:
         # Parse the incoming LINE message event
         msg = json.loads(event['body'])
-        # print("Received event:", json.dumps(msg, indent=2))
 
         for event in msg.get('events', []):
             # Ensure the event is a message event
@@ -24,9 +23,11 @@ def lambda_handler(event, context):
                 message_type = event['message']['type']
                 message_id = event['message']['id']
                 print("Processing Event:", message_id)
+                
                 # Get message content from LINE
                 message_content = line_bot_api.get_message_content(message_id)
-                print(message_content.content)
+                print("Content-Type:", message_content.content_type)
+                
                 # Get the current date and time in UTC
                 utc_now = datetime.utcnow()
                 
@@ -48,13 +49,11 @@ def lambda_handler(event, context):
                     
                 elif message_type == 'video':
                     object_key = f'{timestamp}_{message_id}.mp4'
-                    print("reached before data")
-
-                    data = message_content.content
-                    print("message content:", message_content)
-                    print("data", data)
-
                     try:
+                        data = message_content.content
+                        print("Message content:", message_content)
+                        print("Data length:", len(data))
+
                         s3.put_object(Bucket=s3_bucket_name, Key=object_key, Body=data)
                         print(f"Video uploaded to S3: s3://{s3_bucket_name}/{object_key}")
                     except Exception as e:
@@ -65,6 +64,7 @@ def lambda_handler(event, context):
             "body": json.dumps({"message": "Messages processed successfully"})
         }
     except Exception as e:
+        print(f"Error processing message: {e}")
         return {
             "statusCode": 500,
             "body": json.dumps({"message": str(e)})
