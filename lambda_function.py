@@ -49,6 +49,8 @@ def lambda_handler(event, context):
                 elif message_type == 'video':
                     object_key = f'{timestamp}_{message_id}.mp4'
                     data = message_content.content
+                    print("reached before data")
+                    print("message content:", message_content)
                     print("data", data)
 
                     try:
