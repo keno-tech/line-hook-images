@@ -34,7 +34,7 @@ def lambda_handler(event, context):
                 gmt_plus_7 = utc_now + timedelta(hours=7)
                 
                 # Format the timestamp
-                timestamp = gmt_plus_7.strftime('%Y-%m-%d_%H-%M-%S')
+                timestamp = gmt_plus_7.strftime('%Y-%m-%d_%H:%M:%S')
                 
                 # Determine the type of message and handle accordingly
                 if message_type == 'image':
